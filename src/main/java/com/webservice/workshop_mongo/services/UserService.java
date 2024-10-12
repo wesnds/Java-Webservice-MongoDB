@@ -5,8 +5,6 @@ import com.webservice.workshop_mongo.domain.User;
 import com.webservice.workshop_mongo.exceptions.ObjectNotFoundException;
 import com.webservice.workshop_mongo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

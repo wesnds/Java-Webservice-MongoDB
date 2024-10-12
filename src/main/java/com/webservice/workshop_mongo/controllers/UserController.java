@@ -1,6 +1,7 @@
 package com.webservice.workshop_mongo.controllers;
 
 import com.webservice.workshop_mongo.DTOs.UserDTO;
+import com.webservice.workshop_mongo.domain.Post;
 import com.webservice.workshop_mongo.domain.User;
 import com.webservice.workshop_mongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -32,6 +32,12 @@ public class UserController {
     public ResponseEntity<UserDTO> findUserById(@PathVariable String id){
         User user = userService.findUserById(id);
         return ResponseEntity.status(HttpStatus.OK).body(new UserDTO(user));
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User user = userService.findUserById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(user.getPosts());
     }
 
     @PostMapping
