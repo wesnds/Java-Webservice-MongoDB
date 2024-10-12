@@ -1,5 +1,6 @@
 package com.webservice.workshop_mongo.config;
 
+import com.webservice.workshop_mongo.DTOs.AuthorDTO;
 import com.webservice.workshop_mongo.domain.Post;
 import com.webservice.workshop_mongo.domain.User;
 import com.webservice.workshop_mongo.repositories.PostRepository;
@@ -33,10 +34,14 @@ public class TestConfig implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, sdf.parse("21/03/2024"), "Partiu viagem!", "Vou viajar para São Paulo. Abraços!", maria);
-        Post post2 = new Post(null, sdf.parse("23/03/2024"), "Bom dia!", "Acordei feliz hoje", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null, sdf.parse("21/03/2024"), "Partiu viagem!", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("23/03/2024"), "Bom dia!", "Acordei feliz hoje", new AuthorDTO(maria));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
+
+        maria.getPosts().addAll(Arrays.asList(post1, post2));
+        userRepository.save(maria);
     }
 }
